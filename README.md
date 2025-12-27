@@ -106,9 +106,9 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 
-    # 静态资源（支付图标等）
+    # 静态资源（支付图标等）- Nginx 直接服务
     location /assets/ {
-        proxy_pass http://127.0.0.1:3000;
+        alias /path/to/server/dist/public/assets/;
     }
 
     # 前端路由 - SPA 支持
