@@ -275,7 +275,7 @@ router.post('/refund', requireMerchantRamPermission('finance'), async (req, res)
 });
 
 // 查询订单退款信息（用于弹窗显示）
-router.post('/refund/query', async (req, res) => {
+router.post('/refund/query', requireMerchantRamPermission('finance'), async (req, res) => {
   try {
     const { user_id } = req.user;
     const { tradeNo } = req.body;

@@ -46,8 +46,8 @@ function sanitizeInput(str, maxLen = 50) {
 // 验证权限数组
 function validatePermissions(perms) {
   if (!Array.isArray(perms)) return false;
-  // 商户可用权限：admin(全部), order(流水管理), finance(提现管理)
-  const allowedPerms = ['admin', 'order', 'finance'];
+  // 商户可用权限：admin(全部), order(流水管理), finance(财务/提现管理), settings(设置)
+  const allowedPerms = ['admin', 'order', 'finance', 'settings'];
   return perms.every(p => typeof p === 'string' && allowedPerms.includes(p));
 }
 

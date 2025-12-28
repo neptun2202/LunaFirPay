@@ -11,7 +11,7 @@ const { requireMerchantRamPermission } = require('../auth');
 // ==================== 结算相关接口 ====================
 
 // 获取总余额（所有服务商余额之和）
-router.get('/balance/total', async (req, res) => {
+router.get('/balance/total', requireMerchantRamPermission('finance'), async (req, res) => {
   try {
     const { user_id } = req.user;
     
@@ -28,7 +28,7 @@ router.get('/balance/total', async (req, res) => {
 });
 
 // 获取商户余额信息（单服务商模式）
-router.get('/services/list', async (req, res) => {
+router.get('/services/list', requireMerchantRamPermission('finance'), async (req, res) => {
   try {
     const { user_id } = req.user;
     
@@ -87,7 +87,7 @@ router.get('/settlement/options', async (req, res) => {
 });
 
 // 获取商户结算设置
-router.get('/settlement/settings', async (req, res) => {
+router.get('/settlement/settings', requireMerchantRamPermission('settings'), async (req, res) => {
   try {
     const { user_id } = req.user;
     
@@ -192,7 +192,7 @@ router.post('/settlement/delete', requireMerchantRamPermission('settings'), asyn
 // ===================== 提现申请功能 =====================
 
 // 获取可提现信息
-router.get('/withdraw/info', async (req, res) => {
+router.get('/withdraw/info', requireMerchantRamPermission('finance'), async (req, res) => {
   try {
     const { user_id } = req.user;
     
@@ -447,7 +447,7 @@ router.post('/withdraw/apply', requireMerchantRamPermission('finance'), async (r
 });
 
 // 获取结算/提现记录列表
-router.get('/withdraw/records', async (req, res) => {
+router.get('/withdraw/records', requireMerchantRamPermission('finance'), async (req, res) => {
   try {
     const { user_id } = req.user;
     const { status, page = 1, pageSize = 20 } = req.query;

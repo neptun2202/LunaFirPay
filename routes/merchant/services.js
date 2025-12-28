@@ -255,7 +255,8 @@ router.get('/provider/detail', async (req, res) => {
 });
 
 // 获取PID的V2接口密钥（RSA公钥和私钥）- 单服务商模式
-router.get('/provider/v2-keys', async (req, res) => {
+// 敏感信息：仅主账户可访问
+router.get('/provider/v2-keys', requireMerchantMainAccount, async (req, res) => {
   try {
     const { user_id } = req.user;
 

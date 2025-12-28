@@ -80,7 +80,7 @@ router.post('/settlement/options', requireProviderRamPermission('settings'), asy
 });
 
 // 获取商户结算信息列表
-router.get('/settlement/merchants', async (req, res) => {
+router.get('/settlement/merchants', requireProviderRamPermission('finance'), async (req, res) => {
   try {
     // 单服务商模式，排除管理员
     const [merchants] = await db.query(`
@@ -225,7 +225,7 @@ router.post('/settlement/fee-config', requireProviderRamPermission('settings'), 
 });
 
 // 获取提现申请列表
-router.get('/withdraw/records', async (req, res) => {
+router.get('/withdraw/records', requireProviderRamPermission('finance'), async (req, res) => {
   try {
     const { merchant_id, status, settle_type, page = 1, pageSize = 20 } = req.query;
     
