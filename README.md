@@ -99,6 +99,15 @@ Node.js 默认运行在 `3000` 端口，Nginx 作为反向代理，静态文件�
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_cache_bypass $http_upgrade;
     }
+    # /pay/ 路由代理到 Node.js 后端（支付相关）
+        location /pay/ {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
     
     # 兼容易支付 PHP 路由 - 代理到 Node.js 后端
     location ~ ^/(submit|mapi|api)\.php$ {
